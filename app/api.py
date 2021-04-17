@@ -3,7 +3,6 @@ from tensorflow.python.keras.models import load_model
 import numpy as np
 from PIL import Image, ExifTags
 import cv2
-import os
 
 
 result = ["Covid19", "Binh thuong", "Benh viem phoi"]
