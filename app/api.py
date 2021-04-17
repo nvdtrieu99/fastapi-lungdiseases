@@ -6,7 +6,7 @@ import cv2
 
 
 result = ["Covid19", "Binh thuong", "Benh viem phoi"]
-model = load_model('app/../model/best_model_vgg16.h5')
+# model = load_model('app/../model/best_model_vgg16.h5')
 
 
 app = FastAPI()
@@ -16,24 +16,24 @@ async def home():
         "hello": "world"
     }
 
-@app.post("/uploadfile")
-async def create_upload_file(file: UploadFile = File(...)):
-    img = Image.open(file.file)
-    img = np.array(img)
-    image = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-    image = cv2.resize(image, (128,128))
-    image = image/255.0
-    image = np.reshape(image, (1,128,128,3))
-    pre = model.predict(image)
-    chart = result[0]+":"+str(pre[0][0])+","+result[1]+":"+str(pre[0][1])+","+result[2]+":"+str(pre[0][2])
-    print(chart)
-    return [
-        {
-            "type": str(result[np.argmax(pre)]),
-            "accuracy": float("{:.4f}".format(pre[0][np.argmax(pre)])),
-            "chart": chart
-        }
-    ]
+# @app.post("/uploadfile")
+# async def create_upload_file(file: UploadFile = File(...)):
+#     img = Image.open(file.file)
+#     img = np.array(img)
+#     image = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+#     image = cv2.resize(image, (128,128))
+#     image = image/255.0
+#     image = np.reshape(image, (1,128,128,3))
+#     pre = model.predict(image)
+#     chart = result[0]+":"+str(pre[0][0])+","+result[1]+":"+str(pre[0][1])+","+result[2]+":"+str(pre[0][2])
+#     print(chart)
+#     return [
+#         {
+#             "type": str(result[np.argmax(pre)]),
+#             "accuracy": float("{:.4f}".format(pre[0][np.argmax(pre)])),
+#             "chart": chart
+#         }
+#     ]
 
 def autoRotateImage(img):
     for orientation in ExifTags.TAGS.keys():
